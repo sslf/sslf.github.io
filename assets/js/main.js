@@ -66,6 +66,13 @@ $(function() {
       });
     {% endif %}
     // your scripts
+
+    if($("#SOHUCS").length==1){
+      window.changyan = undefined;window.cyan = undefined;
+      $.getScript("https://changyan.sohu.com/upload/changyan.js", function(){window.changyan.api.config({appid: "cytkpya3a",conf: "prod_6a865b7e9e8d4fce0351a3c3c3402ce8"});});
+      
+    }
+
   };
   afterPjax();
 
