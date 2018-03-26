@@ -1,7 +1,6 @@
 ---
 title: 关于
-layout: post
-enableComment：false
+layout: default
 ---
 
 ## 联系方式
