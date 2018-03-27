@@ -32,24 +32,5 @@ layout: default
 <div class="comment container">
   <!--PC版-->
   <div id="SOHUCS" sid="{{ page.title }}"></div>
-  <!--<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js" ></script>-->
-  <script type="text/javascript">
-    /**window.changyan.api.config({
-      appid: 'cytkpya3a',
-      conf: 'prod_6a865b7e9e8d4fce0351a3c3c3402ce8'
-    });**/
-    
-    /**$(document).one("pjax:complete", function (){
-      //window.changyan = undefined;window.cyan = undefined;
-      // $.getScript("https://changyan.sohu.com/upload/changyan.js", function(){window.changyan.api.config({appid: "cytkpya3a",conf: "prod_6a865b7e9e8d4fce0351a3c3c3402ce8"});});
-    });*/
-
-    if( $("#SOHUCS").length > 0 ){
-      window.changyan = undefined;
-      window.cyan = undefined;
-      $.getScript("https://changyan.sohu.com/upload/changyan.js", function(){window.changyan.api.config({appid: "cytkpya3a",conf: "prod_6a865b7e9e8d4fce0351a3c3c3402ce8"});});
-    };
-
-  </script>
 </div>
 {% endif %}
