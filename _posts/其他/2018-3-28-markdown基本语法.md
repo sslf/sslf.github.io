@@ -2,6 +2,7 @@
 layout: post
 title: markdown基本语法
 category: 其他
+permalink: /other/markdown.html
 ---
 
 [参考地址](http://xianbai.me/learn-md/article/about/readme.html "title:参考地址")
