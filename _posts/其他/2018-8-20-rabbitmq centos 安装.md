@@ -30,6 +30,7 @@ rpm -ivh rabbitmq-server-3.7.7-1.el6.noarch.rpm
 # 服务的启动
 service rabbitmq-server start # 启动mq服务
 rabbitmq-plugins enable rabbitmq_management # 开启web管理
+chkconfig rabbitmq-server on # 开启开机启动
 
 # 端口的开启
 iptables -I INPUT -p tcp -m tcp --dport 15672 -j ACCEPT  # 开启端口
