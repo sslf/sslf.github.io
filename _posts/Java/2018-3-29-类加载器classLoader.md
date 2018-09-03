@@ -1,6 +1,5 @@
 ---
 layout: post
-title: 类加载器classLoader
 category: Java
 #permalink: /java/base/classLoader.html
 ---

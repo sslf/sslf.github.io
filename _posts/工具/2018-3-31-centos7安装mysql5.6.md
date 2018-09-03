@@ -1,6 +1,5 @@
 ---
 layout: post
-title: centos7安装mysql5.6
 category: 工具
 #permalink: /mysql/centos-install.html
 ---

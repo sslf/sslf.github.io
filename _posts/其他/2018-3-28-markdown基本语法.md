@@ -1,6 +1,5 @@
 ---
 layout: post
-title: markdown基本语法
 category: 其他
 #permalink: /other/markdown.html
 ---

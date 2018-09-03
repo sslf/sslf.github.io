@@ -1,8 +1,6 @@
 ---
 layout: post
-# title: rabbitmq安装
 category: 工具
-# permalink: /other/cluster.html
 ---
 
 在安装之前，我们需要准备的运行环境有：
