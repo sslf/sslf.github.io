@@ -1,6 +1,6 @@
 ---
 layout: post
-category: 工具
+category: 其他
 tags: [git]
 ---
 
