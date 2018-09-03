@@ -1,7 +1,7 @@
 ---
 layout: post
 title: rabbitmq安装
-category: 其他
+category: 工具
 # permalink: /other/cluster.html
 ---
 

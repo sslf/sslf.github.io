@@ -1,8 +1,8 @@
 ---
 layout: post
 title: 类加载器classLoader
-category: Java基础
-permalink: /java/base/classLoader.html
+category: Java
+#permalink: /java/base/classLoader.html
 ---
 
 [参考](https://blog.csdn.net/briblue/article/details/54973413)

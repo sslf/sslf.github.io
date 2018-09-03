@@ -1,8 +1,8 @@
 ---
 layout: post
 title: centos7安装mysql5.6
-category: mysql
-permalink: /mysql/centos-install.html
+category: 工具
+#permalink: /mysql/centos-install.html
 ---
 安装步骤如下：
 ```shell
