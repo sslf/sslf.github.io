@@ -24,7 +24,7 @@ rpm -ivh rabbitmq-server-3.7.7-1.el6.noarch.rpm
 
 经过以上的步骤，rabbitmq应该已经是安装成功了。那接下来就是rabbitmq的配置
 
-``` shell
+```shell
 # 服务的启动
 service rabbitmq-server start # 启动mq服务
 rabbitmq-plugins enable rabbitmq_management # 开启web管理
