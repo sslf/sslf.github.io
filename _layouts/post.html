@@ -34,12 +34,29 @@ layout: default
   <div id="SOHUCS" sid="{{ page.title }}"></div>
   <script src="{{ "/assets/js/jquery-2.1.3.min.js" | prepend: site.baseurl }}"></script>
   <script type="text/javascript">
-      if( $("#SOHUCS").length > 0 ){
-        window.changyan = undefined;
-        window.cyan = undefined;
-        $.getScript("https://changyan.sohu.com/upload/changyan.js", function(){window.changyan.api.config({appid: "cytkpya3a",conf: "prod_6a865b7e9e8d4fce0351a3c3c3402ce8"});});
-      };
+    if ($("#SOHUCS").length > 0) {
+      window.changyan = undefined;
+      window.cyan = undefined;
+      $.getScript("https://changyan.sohu.com/upload/changyan.js", function () { window.changyan.api.config({ appid: "cytkpya3a", conf: "prod_6a865b7e9e8d4fce0351a3c3c3402ce8" }); });
+    };
   </script>
 
 </div>
+
+<div id="container-comment"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+  var gitment = new Gitment({
+    //id: '页面 ID', // 可选。默认为 location.href
+    owner: 'sslf',
+    repo: 'blog-comment',
+    oauth: {
+      client_id: '76c17d044e0fef278057',
+      client_secret: '0f102766c5ee9762bcac14d9a33e01d0d4ddafdb',
+    },
+  })
+  gitment.render('container-comment')
+</script>
+
 {% endif %}
