@@ -1,6 +1,6 @@
 ---
 title: 关于
-layout: default
+layout: post
 ---
 
 ### 联系方式
