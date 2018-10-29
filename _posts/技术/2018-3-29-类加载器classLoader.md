@@ -1,6 +1,7 @@
 ---
 layout: post
 category: 技术
+uuid: 0d8b4686-1c4d-5c2b-91a5-facc34d40228
 #permalink: /java/base/classLoader.html
 ---
 

@@ -1,6 +1,7 @@
 ---
 layout: post
 category: 工具
+uuid: 37ff7c42-56bd-5798-8231-bde4dfbd3377
 #permalink: /other/markdown.html
 ---
 
