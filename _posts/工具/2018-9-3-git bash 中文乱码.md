@@ -8,12 +8,12 @@ uuid: 41c9072e-e270-54d2-9a58-88512f1ac552
 
 #### git status 乱码
 执行：git status 命令时，本来该显示中文的地方，都显示成了数字，特别难受。 
-![2018-09-03-19-43-15](http://ozsqtghjh.bkt.clouddn.com/2018-09-03-19-43-15.png) 
+![2018-09-03-19-43-15](http://qiniu.blog.sslfer.com/2018-09-03-19-43-15.png) 
 
 解决办法如下：  
 执行：**git config \-\-global core.quotepath false** 就恢复正常了
 
-![2018-09-03-19-46-25](http://ozsqtghjh.bkt.clouddn.com/2018-09-03-19-46-25.png)
+![2018-09-03-19-46-25](http://qiniu.blog.sslfer.com/2018-09-03-19-46-25.png)
 
 #### git log 乱码
 ```shell

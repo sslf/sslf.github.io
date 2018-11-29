@@ -24,7 +24,7 @@ AppClassLoader 是 自定义的ClassLoader 的加载器。
 所以，当我们要指明父加载器是BootstrapClassLoader的话，就直接设置为null即可。
 
 ### 加载类的过程（双亲委派）
-![类加载过程](http://ozsqtghjh.bkt.clouddn.com/7548088943b82ee61f06fbcdd1ad1cf1.png)
+![类加载过程](http://qiniu.blog.sslfer.com/7548088943b82ee61f06fbcdd1ad1cf1.png)
 
 总结：加载类是一层一层往上加载，如果找到了就一层层返回。如果找到顶层都还没有找到，那顶层加载器就开始加载。如果没有加载到，就调用下一层，一层层加载。直到最后一层加载，如果加载到就返回。没有就抛出ClassNotFindExcepton。
 
