@@ -51,16 +51,21 @@ layout: default
   <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
   <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
   <script>
-    var gitment = new Gitment({
-      id: '{{ page.uuid }}',
-      owner: 'sslf',
-      repo: 'sslf.github.io',
-      oauth: {
-        client_id: '76c17d044e0fef278057',
-        client_secret: '0f102766c5ee9762bcac14d9a33e01d0d4ddafdb',
-      },
+    $(function () {
+
+      var gitment = new Gitment({
+        id: '{{ page.uuid }}',
+        owner: 'sslf',
+        repo: 'sslf.github.io',
+        oauth: {
+          client_id: '76c17d044e0fef278057',
+          client_secret: '0f102766c5ee9762bcac14d9a33e01d0d4ddafdb',
+        },
+      });
+      gitment.render('container-comment');
+
     });
-    gitment.render('container-comment');
+
   </script>
 </div>
 {% endif %}
