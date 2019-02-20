@@ -1,5 +1,6 @@
 ---
-layout: post
+title: Centos7 修改源镜像
+date: 2018-3-31
 category: 工具
 uuid: 675c6c40-5fd5-5f63-8af9-e5fedf20a22a
 #permalink: /linux/update-source.html

@@ -1,5 +1,6 @@
 ---
-layout: post
+title: Mysql 中的锁
+date: 2018-04-04
 category: 工具
 ---
 参考： [锁的概念](https://www.jianshu.com/p/88231c4944f7)、 [锁的分析](https://blog.csdn.net/claram/article/details/54023216)

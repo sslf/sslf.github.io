@@ -1,5 +1,6 @@
 ---
-layout: post
+title: Java 日志体系
+date: 2018-4-17
 category: 技术
 uuid: 29a4624a-0b10-520d-bd68-c034e35d084c
 #permalink: /java/log.html

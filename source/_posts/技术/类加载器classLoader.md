@@ -1,8 +1,8 @@
 ---
-layout: post
+title: 类加载器 ClassLoader
+date: 2018-3-29
 category: 技术
 uuid: 0d8b4686-1c4d-5c2b-91a5-facc34d40228
-#permalink: /java/base/classLoader.html
 ---
 
 [参考](https://blog.csdn.net/briblue/article/details/54973413)

@@ -1,5 +1,6 @@
 ---
-layout: post
+title: 编程器救砖小米mini路由器
+date: 2017-11-21
 category: 工具
 tags: [救砖 , 小米mini路由器]
 uuid: e2c32f3b-5991-5806-b5cf-4994bf0caad2

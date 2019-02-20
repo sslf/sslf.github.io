@@ -1,8 +1,8 @@
 ---
-layout: post
+title: Mysql 读写分离
+date: 2018-3-31
 category: 工具
 uuid: 8cfbd408-99a7-5159-80d1-8137643ae2fb
-#permalink: /mysql/reade-writ.html
 ---
 mysql版本为：5.6
 要读写分离，就要配置mysql的同步。

@@ -1,5 +1,6 @@
 ---
-layout: post
+title: Rabbitmq CentOS 安装
+date: 2018-8-20
 category: 工具
 uuid: c6addbb6-e6f1-5da7-a03c-614adae59eae
 ---

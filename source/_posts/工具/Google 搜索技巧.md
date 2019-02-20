@@ -1,5 +1,6 @@
 ---
-layout: post
+title: Google 搜索技巧
+date: 2018-4-4
 category: 工具
 uuid: fd427d9a-0a6c-53a4-9e86-f6991829e90c
 #permalink: /other/googleSearch.html
