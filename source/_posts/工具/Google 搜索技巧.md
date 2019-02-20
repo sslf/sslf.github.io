@@ -2,8 +2,7 @@
 title: Google 搜索技巧
 date: 2018-4-4
 category: 工具
-uuid: fd427d9a-0a6c-53a4-9e86-f6991829e90c
-#permalink: /other/googleSearch.html
+id: fd427d9a-0a6c-53a4-9e86-f6991829e90c
 ---
 首先介绍google常用的命令
 1. 双引号（完全匹配搜索）

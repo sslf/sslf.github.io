@@ -3,8 +3,7 @@ title: 编程器救砖小米mini路由器
 date: 2017-11-21
 category: 工具
 tags: [救砖 , 小米mini路由器]
-uuid: e2c32f3b-5991-5806-b5cf-4994bf0caad2
-#permalink: /other/repair-xiaomi-router.html
+id: e2c32f3b-5991-5806-b5cf-4994bf0caad2
 ---
 
 这个教程也适用修复sn码。**申明： 刷机有风险，需谨慎。一切后果与本人无关**。

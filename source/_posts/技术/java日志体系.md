@@ -2,8 +2,7 @@
 title: Java 日志体系
 date: 2018-4-17
 category: 技术
-uuid: 29a4624a-0b10-520d-bd68-c034e35d084c
-#permalink: /java/log.html
+id: 29a4624a-0b10-520d-bd68-c034e35d084c
 ---
 在工作中，我们可以接触到很多的日志jar包，比如：java.util.logging、log4j、log4j2、logback、slf4j等等。那我们应该怎么使用呢？
 

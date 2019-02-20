@@ -3,7 +3,7 @@ title: Git Bash 中文乱码
 date: 2018-9-3
 category: 工具
 tags: [git]
-uuid: 41c9072e-e270-54d2-9a58-88512f1ac552
+id: 41c9072e-e270-54d2-9a58-88512f1ac552
 ---
 
 

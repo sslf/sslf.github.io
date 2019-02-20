@@ -2,7 +2,7 @@
 title: Markdown 基本语法
 date: 2018-3-28
 category: 工具
-uuid: 37ff7c42-56bd-5798-8231-bde4dfbd3377
+id: 37ff7c42-56bd-5798-8231-bde4dfbd3377
 ---
 
 [参考地址](http://xianbai.me/learn-md/article/about/readme.html "title:参考地址")

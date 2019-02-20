@@ -2,7 +2,7 @@
 title: CentOS7 安装 mysql5.6
 date: 2018-3-31
 category: 工具
-uuid: b8c75212-4125-53f4-9814-34c5c2345617
+id: b8c75212-4125-53f4-9814-34c5c2345617
 ---
 安装步骤如下：
 ```shell

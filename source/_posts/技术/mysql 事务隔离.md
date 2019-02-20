@@ -3,7 +3,7 @@ title: Mysql 事务隔离
 date: 2018-9-5
 category: 技术
 tags: [mysql, spring]
-uuid: f8e531b2-84c9-5e3e-96ff-caf779eeeba0
+id: f8e531b2-84c9-5e3e-96ff-caf779eeeba0
 ---
 
 ### 一、数据库事务的基本特性

@@ -2,7 +2,7 @@
 title: Java 动态代理
 date: 2018-3-27
 category: 技术
-uuid: e19b6759-8338-5054-a699-40fb7235f3b0
+id: e19b6759-8338-5054-a699-40fb7235f3b0
 ---
 什么是[代理模式](/designPatterns/proxy.html)已经说明过了，那为什么Java又会有动态代理呢？
 

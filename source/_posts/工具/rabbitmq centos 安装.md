@@ -2,7 +2,7 @@
 title: Rabbitmq CentOS 安装
 date: 2018-8-20
 category: 工具
-uuid: c6addbb6-e6f1-5da7-a03c-614adae59eae
+id: c6addbb6-e6f1-5da7-a03c-614adae59eae
 ---
 
 在安装之前，我们需要准备的运行环境有：
