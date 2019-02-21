@@ -19,13 +19,13 @@ category: 工具
 3. 锁的作用域 --> 行锁、表锁
 
 具体关系，请看下图：  
-![mysql 锁的关系](http://ozsqtghjh.bkt.clouddn.com/9e2f8dabc0b2ac1dbe14df29c1f308b8.png)
+![mysql 锁的关系](http://qiniu.blog.sslfer.com/9e2f8dabc0b2ac1dbe14df29c1f308b8.png)
 
 概述：mysql的锁可以分为两类，一类是乐观锁，另一类是悲观锁。乐观锁是要自己实现的，是一种代码逻辑锁，并没有在mysql中正在的加锁。悲观锁mysql有两种实现，一种是共享锁，另一种是排它锁。
 
 ### 乐观锁
 是代码层面的逻辑控制。如果用数据库控制的话，一般就是新增一个字段来当锁。
-![锁的表](http://ozsqtghjh.bkt.clouddn.com/268ab6ae571ce1c4b8d0445a9762aa94.png)  
+![锁的表](http://qiniu.blog.sslfer.com/268ab6ae571ce1c4b8d0445a9762aa94.png)  
 假如要修改name字段。做法如下：
 ```sql
 -- 得到锁的值为0
