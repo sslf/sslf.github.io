@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next gemini" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="这篇文章是计算机基础的开篇，同时也是我这个非科班的从头学习计算知识的总结。 接下来你将看到：  什么是基数 什么是权 十进制转换为二、八、十六进制 二、八、十六进制转换为十进制 二进制和八进制之间的互转 二进制和十六进制之间的互转  一、什么是进制？ 进位制是一种记数方式，亦称进位计数法或位值计数法。利用这种记数法，可以使用有限种数字符号来表示所有的数值 –维基百科  二、常见用途 二进制广泛用于">
+<meta property="og:type" content="article">
+<meta property="og:title" content="进制之间的转换">
+<meta property="og:url" content="http://blog.sslfer.com/2018/10/12/基础/进制之间的转换/index.html">
+<meta property="og:site_name" content="水上灵风">
+<meta property="og:description" content="这篇文章是计算机基础的开篇，同时也是我这个非科班的从头学习计算知识的总结。 接下来你将看到：  什么是基数 什么是权 十进制转换为二、八、十六进制 二、八、十六进制转换为十进制 二进制和八进制之间的互转 二进制和十六进制之间的互转  一、什么是进制？ 进位制是一种记数方式，亦称进位计数法或位值计数法。利用这种记数法，可以使用有限种数字符号来表示所有的数值 –维基百科  二、常见用途 二进制广泛用于">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-02-21T09:58:56.438Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="进制之间的转换">
+<meta name="twitter:description" content="这篇文章是计算机基础的开篇，同时也是我这个非科班的从头学习计算知识的总结。 接下来你将看到：  什么是基数 什么是权 十进制转换为二、八、十六进制 二、八、十六进制转换为十进制 二进制和八进制之间的互转 二进制和十六进制之间的互转  一、什么是进制？ 进位制是一种记数方式，亦称进位计数法或位值计数法。利用这种记数法，可以使用有限种数字符号来表示所有的数值 –维基百科  二、常见用途 二进制广泛用于">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.sslfer.com/2018/10/12/基础/进制之间的转换/">
+
+
+
+
+
+  <title>进制之间的转换 | 水上灵风</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e22181c41b28e5cfb1dda27dad0a5e6e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">水上灵风</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">年龄大了，记不住了。所以</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.sslfer.com/2018/10/12/基础/进制之间的转换/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="水上灵风">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/7332504?s=400&u=a3a4e327f64825ed221713053c243f2163ed26b9&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="水上灵风">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">进制之间的转换</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-12T00:00:00+00:00">
+                2018-10-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/基础/" itemprop="url" rel="index">
+                    <span itemprop="name">基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/10/12/基础/进制之间的转换/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/10/12/基础/进制之间的转换/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/10/12/基础/进制之间的转换/" class="leancloud_visitors" data-flag-title="进制之间的转换">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这篇文章是计算机基础的开篇，同时也是我这个非科班的从头学习计算知识的总结。</p>
+<p>接下来你将看到：</p>
+<ul>
+<li>什么是基数</li>
+<li>什么是权</li>
+<li>十进制转换为二、八、十六进制</li>
+<li>二、八、十六进制转换为十进制</li>
+<li>二进制和八进制之间的互转</li>
+<li>二进制和十六进制之间的互转</li>
+</ul>
+<h2 id="一、什么是进制？"><a href="#一、什么是进制？" class="headerlink" title="一、什么是进制？"></a>一、什么是进制？</h2><blockquote>
+<p>进位制是一种记数方式，亦称进位计数法或位值计数法。利用这种记数法，可以使用有限种数字符号来表示所有的数值 –维基百科</p>
+</blockquote>
+<h2 id="二、常见用途"><a href="#二、常见用途" class="headerlink" title="二、常见用途"></a>二、常见用途</h2><ol>
+<li><strong>二进制</strong>广泛用于计算机</li>
+<li><strong>三进制</strong>用于军队编制</li>
+<li><strong>八进制</strong>广泛用于计算机</li>
+<li><strong>十进制</strong>最为常用</li>
+<li><strong>十二进制</strong>用于计算时辰、月份、一打物品</li>
+<li><strong>十六进制</strong>广泛用于计算机</li>
+<li><strong>二十进制</strong>曾被玛雅文明使用</li>
+<li><strong>六十进制</strong>用于计算时间与角度单元。如秒、分</li>
+</ol>
+<h2 id="三、转换之前要明白的"><a href="#三、转换之前要明白的" class="headerlink" title="三、转换之前要明白的"></a>三、转换之前要明白的</h2><p><strong>基数</strong>：计数系统拥有的计数字符的个数。</p>
+<blockquote>
+<p>例如：二进制的字符有：0、1，一共有2个字符。那二进制的基数就是2<br>八进制的字符有：0、1、2、3、4、5、6、7，一共有8个字符。基数就是8<br>十进制的字符有：0、1、2、3、4、5、6、7、8、9，一共有10个字符。基数就是10<br>十六进制的字符有：0、1、2、3、4、5、6、7、8、9、A、B、C、D、E、F，一共有16个字符。基数就是16</p>
+</blockquote>
+<p><strong>数字的位置</strong>：小数点前的从0开始数；小数点后的从-1开始数。简单的理解就是：个位是位置0，向左位置+1，向右位置-1（可以为负数）。</p>
+<blockquote>
+<p>例如数字：7654.321。7的位置是3、6的位置是2、5的位置是1、4的位置是0、3的是-1、2的是-2、1的是-3</p>
+</blockquote>
+<p><strong>权（位置决定的值）</strong>： <strong>基数</strong>的（位置）次方的值。比如有一个十进制的数字：123.4。那各个数字的权为：1的为10^2、2的为10^1、3的为10^0、4的为10^-1</p>
+<p><strong>任何数值都是各位数值本身的值与其权之积的总和</strong>：</p>
+<blockquote>
+<p>例如：二进制数 10101 = 1*2^4 + 0*2^3 + 1*2^2 + 0*2^1 + 1*2^0<br>十进制数 1023 = 1*10^3 + 0*10^2 + 2*10^1 + 3*10^0</p>
+</blockquote>
+<h2 id="四、xxx进制转为十进制"><a href="#四、xxx进制转为十进制" class="headerlink" title="四、xxx进制转为十进制"></a>四、xxx进制转为十进制</h2><p>任何进制转换为十进制，都是按权展开，权值相加 </p>
+<h3 id="1-二进制-–-gt-十进制"><a href="#1-二进制-–-gt-十进制" class="headerlink" title="1. 二进制 –&gt; 十进制"></a>1. 二进制 –&gt; 十进制</h3><p>1001100.011 = ？（十进制）<br>= 1*2^6 + 1*2^3 + 1*2^2 + 1*2^-2 + 1*2^-3<br>= 64 + 8 + 4 + 0.25 + 0.125<br>= 76.375  </p>
+<h3 id="2-八进制-–-gt-十进制"><a href="#2-八进制-–-gt-十进制" class="headerlink" title="2. 八进制 –&gt; 十进制"></a>2. 八进制 –&gt; 十进制</h3><p>23574.23 = ？（十进制）<br>= 2*8^4 + 3*8^3 + 5*8^2 + 7*8^1 + 4*8^0 + 2*8^-1 + 3*8^-2<br>= 8192 + 1536 + 320 + 56 + 4 + 0.25 + 0.046875<br>= 10108.296875</p>
+<h3 id="3-十六进制-–-gt-十进制"><a href="#3-十六进制-–-gt-十进制" class="headerlink" title="3. 十六进制 –&gt; 十进制"></a>3. 十六进制 –&gt; 十进制</h3><p>3b3d9.3a = ？（十进制）<br>= 3*16^4 + b*16^3 + 3*16^2 + d*16^1 + 9*16^0 + 3*16^-1 + a<em>16^-2<br>= 3\</em>16^4 + 11*16^3 + 3*16^2 + 13*16^1 + 9*16^0 + 3*16^-1 + 10*16^-2<br>= 196608 + 45056 + 768 + 208 + 9 + 0.1875 + 0.0390625<br>= 242649.2265625</p>
+<h2 id="五、十进制转为xxx进制"><a href="#五、十进制转为xxx进制" class="headerlink" title="五、十进制转为xxx进制"></a>五、十进制转为xxx进制</h2><p>十进制转换为其他进制的方法是：整数部分，不断除以基数 <strong>（一直除到商等于0为止）</strong>，余数倒排；小数部分，不断乘以基数，取积的整数部分，余下的小数继续乘以基数，直到为0为止。（因为小数部分是不断乘以基数有可能会无限乘下去，这就是精度问题的产生原因）</p>
+<h3 id="1-十进制-–-gt-二进制"><a href="#1-十进制-–-gt-二进制" class="headerlink" title="1. 十进制 –&gt; 二进制"></a>1. 十进制 –&gt; 二进制</h3><p>1239.31 = ？（二进制）<br>整数部分：<br>= 1239 / 2 等于 619 于 1<br>= 619 / 2 等于 309 于 1<br>= 309 / 2 等于 154 于 1<br>= 154 / 2 等于 77 于 0<br>= 77 / 2 等于 38 于 1<br>= 38 / 2 等于 19 于 0<br>= 19 / 2 等于 9 于 1<br>= 9 / 2 等于 4 于 1<br>= 4 / 2 等于 2 于 0<br>= 2 / 2 等于 1 于 0<br>= 1 / 2 等于 0 于 1  </p>
+<p>小数部分：<br>= 0.31 <em> 2 等于 0.62 整数为 0<br>= 0.62 </em> 2 等于 1.24 整数为 1<br>= 0.24 <em> 2 等于 0.48 整数为 0<br>= 0.48 </em> 2 等于 0.96 整数为 0<br>= 0.96 <em> 2 等于 1.92 整数为 1<br>= 0.92 </em> 2 等于 1.84 整数为 1<br>…</p>
+<p>最后得到的结果是（整数部分倒排，小数部分正排）：1239.31 ≈ 10011010111.010011</p>
+<h3 id="2-十进制-–-gt-八进制"><a href="#2-十进制-–-gt-八进制" class="headerlink" title="2. 十进制 –&gt; 八进制"></a>2. 十进制 –&gt; 八进制</h3><p>计算方式不变，还是和十进制转二进制一样，只是基数从2变为了8。具体详细的计算就略过了。</p>
+<h3 id="3-十进制-–-gt-十六进制"><a href="#3-十进制-–-gt-十六进制" class="headerlink" title="3. 十进制 –&gt; 十六进制"></a>3. 十进制 –&gt; 十六进制</h3><p>基数变为16，其他不变。略</p>
+<h2 id="六、二进八进制互转"><a href="#六、二进八进制互转" class="headerlink" title="六、二进八进制互转"></a>六、二进八进制互转</h2><p>核心思想就是：3位二进制数表示1位8进制数。小数点为分隔符。</p>
+<h3 id="1-二进制-–-gt-八进制"><a href="#1-二进制-–-gt-八进制" class="headerlink" title="1. 二进制 –&gt; 八进制"></a>1. 二进制 –&gt; 八进制</h3><p>小数点为分隔符，向前向后数，不足3位的补0。3为合并为1位</p>
+<p>1001001011.01101 = ？（八进制）<br>= 001 001 001 011.011 010<br>= 1 1 1 3.3 2<br>= 1113.32</p>
+<h3 id="2-八进制-–-gt-二进制"><a href="#2-八进制-–-gt-二进制" class="headerlink" title="2. 八进制 –&gt; 二进制"></a>2. 八进制 –&gt; 二进制</h3><p>3位展开</p>
+<p>37436.24 = ？（二进制）<br>= 011 111 100 011 110.010 100<br>= 011111100011110.010100</p>
+<h2 id="七、二进制十六进制互转"><a href="#七、二进制十六进制互转" class="headerlink" title="七、二进制十六进制互转"></a>七、二进制十六进制互转</h2><p>四位展开或者四位合并</p>
+<h3 id="1-二进制-–-gt-十六进制"><a href="#1-二进制-–-gt-十六进制" class="headerlink" title="1. 二进制 –&gt; 十六进制"></a>1. 二进制 –&gt; 十六进制</h3><p>略。和二进制转为八进制一个方式，只是3位合并变为了4位合并。</p>
+<h3 id="2-十六进制-–-gt-二进制"><a href="#2-十六进制-–-gt-二进制" class="headerlink" title="2. 十六进制 –&gt; 二进制"></a>2. 十六进制 –&gt; 二进制</h3><p>略。和八进制转换为二进制一样。只是展开为3位变成了展开为4位。</p>
+<h2 id="八、总结"><a href="#八、总结" class="headerlink" title="八、总结"></a>八、总结</h2><p>// TODO</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/05/技术/mysql 事务隔离/" rel="next" title="Mysql 事务隔离">
+                <i class="fa fa-chevron-left"></i> Mysql 事务隔离
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/29/基础/原码、反码和补码/" rel="prev" title="原码、反码和补码">
+                原码、反码和补码 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars2.githubusercontent.com/u/7332504?s=400&u=a3a4e327f64825ed221713053c243f2163ed26b9&v=4" alt="水上灵风">
+            
+              <p class="site-author-name" itemprop="name">水上灵风</p>
+              <p class="site-description motion-element" itemprop="description">野生程序猿</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、什么是进制？"><span class="nav-number">1.</span> <span class="nav-text">一、什么是进制？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、常见用途"><span class="nav-number">2.</span> <span class="nav-text">二、常见用途</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、转换之前要明白的"><span class="nav-number">3.</span> <span class="nav-text">三、转换之前要明白的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、xxx进制转为十进制"><span class="nav-number">4.</span> <span class="nav-text">四、xxx进制转为十进制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-二进制-–-gt-十进制"><span class="nav-number">4.1.</span> <span class="nav-text">1. 二进制 –&gt; 十进制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-八进制-–-gt-十进制"><span class="nav-number">4.2.</span> <span class="nav-text">2. 八进制 –&gt; 十进制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-十六进制-–-gt-十进制"><span class="nav-number">4.3.</span> <span class="nav-text">3. 十六进制 –&gt; 十进制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、十进制转为xxx进制"><span class="nav-number">5.</span> <span class="nav-text">五、十进制转为xxx进制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-十进制-–-gt-二进制"><span class="nav-number">5.1.</span> <span class="nav-text">1. 十进制 –&gt; 二进制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-十进制-–-gt-八进制"><span class="nav-number">5.2.</span> <span class="nav-text">2. 十进制 –&gt; 八进制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-十进制-–-gt-十六进制"><span class="nav-number">5.3.</span> <span class="nav-text">3. 十进制 –&gt; 十六进制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、二进八进制互转"><span class="nav-number">6.</span> <span class="nav-text">六、二进八进制互转</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-二进制-–-gt-八进制"><span class="nav-number">6.1.</span> <span class="nav-text">1. 二进制 –&gt; 八进制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-八进制-–-gt-二进制"><span class="nav-number">6.2.</span> <span class="nav-text">2. 八进制 –&gt; 二进制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七、二进制十六进制互转"><span class="nav-number">7.</span> <span class="nav-text">七、二进制十六进制互转</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-二进制-–-gt-十六进制"><span class="nav-number">7.1.</span> <span class="nav-text">1. 二进制 –&gt; 十六进制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-十六进制-–-gt-二进制"><span class="nav-number">7.2.</span> <span class="nav-text">2. 十六进制 –&gt; 二进制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#八、总结"><span class="nav-number">8.</span> <span class="nav-text">八、总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">水上灵风</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s13.cnzz.com/z_stat.php?id=1262238490&web_id=1262238490" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: '473bc463-32c4-5ba3-85d5-34c26aee7e70', 
+            <!-- id: window.location.pathname,  -->
+            owner: 'sslf',
+            repo: 'sslf.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '0f102766c5ee9762bcac14d9a33e01d0d4ddafdb',
+            
+                client_id: '76c17d044e0fef278057'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("DBTCLoQdLGuW27zR2cJlBGkl-gzGzoHsz", "1yfdLbbm1zKgNpQnpLUAg49e");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

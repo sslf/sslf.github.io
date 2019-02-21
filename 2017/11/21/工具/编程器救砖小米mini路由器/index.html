@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next gemini" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="救砖,小米mini路由器,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="这个教程也适用修复sn码。申明： 刷机有风险，需谨慎。一切后果与本人无关。 变砖原因刚把路由器买来的时候，就迫不及待的刷成了PandoraBox，用了一段时间之后，想刷回官方的系统，在刷回实际操作的时候，选错了方法，还是使用了刷PandoraBox的方式。导致路由器通电之后，一直处于黄灯状态。ssh无法连接路由器。使用usb刷系统，处于红灯状态。我下意识就知道成砖头了。 吐槽一下小米之家，变砖之后">
+<meta name="keywords" content="救砖,小米mini路由器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="编程器救砖小米mini路由器">
+<meta property="og:url" content="http://blog.sslfer.com/2017/11/21/工具/编程器救砖小米mini路由器/index.html">
+<meta property="og:site_name" content="水上灵风">
+<meta property="og:description" content="这个教程也适用修复sn码。申明： 刷机有风险，需谨慎。一切后果与本人无关。 变砖原因刚把路由器买来的时候，就迫不及待的刷成了PandoraBox，用了一段时间之后，想刷回官方的系统，在刷回实际操作的时候，选错了方法，还是使用了刷PandoraBox的方式。导致路由器通电之后，一直处于黄灯状态。ssh无法连接路由器。使用usb刷系统，处于红灯状态。我下意识就知道成砖头了。 吐槽一下小米之家，变砖之后">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://qiniu.blog.sslfer.com/b843a3b47d108d19d5904890e5d5d2ca.png">
+<meta property="og:image" content="http://qiniu.blog.sslfer.com/9ce6eba2ae3eb2e9a1fcce44e4ef4102.png">
+<meta property="og:image" content="http://qiniu.blog.sslfer.com/ae940eafc8146b1b68ed967fbee62d65.png">
+<meta property="og:image" content="http://qiniu.blog.sslfer.com/9124b5aa11981c2da89f3db2dec95e52.png">
+<meta property="og:image" content="http://qiniu.blog.sslfer.com/c4eec85d9264ce180892307c3ed6c574.png">
+<meta property="og:image" content="http://qiniu.blog.sslfer.com/91d43d7d460f105b0c8a286054efca06.png">
+<meta property="og:image" content="http://qiniu.blog.sslfer.com/2151953c7a30b9c2a1990dc1c5418d4a.png">
+<meta property="og:image" content="http://qiniu.blog.sslfer.com/c95cc33accc889d9cc2baaa2267cd344.png">
+<meta property="og:image" content="http://qiniu.blog.sslfer.com/79528effff185b777c3505275c4fbe73.png">
+<meta property="og:image" content="http://qiniu.blog.sslfer.com/404e68d343fbbd9055287dd8e25e07b5.png">
+<meta property="og:updated_time" content="2019-02-21T09:58:56.438Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="编程器救砖小米mini路由器">
+<meta name="twitter:description" content="这个教程也适用修复sn码。申明： 刷机有风险，需谨慎。一切后果与本人无关。 变砖原因刚把路由器买来的时候，就迫不及待的刷成了PandoraBox，用了一段时间之后，想刷回官方的系统，在刷回实际操作的时候，选错了方法，还是使用了刷PandoraBox的方式。导致路由器通电之后，一直处于黄灯状态。ssh无法连接路由器。使用usb刷系统，处于红灯状态。我下意识就知道成砖头了。 吐槽一下小米之家，变砖之后">
+<meta name="twitter:image" content="http://qiniu.blog.sslfer.com/b843a3b47d108d19d5904890e5d5d2ca.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.sslfer.com/2017/11/21/工具/编程器救砖小米mini路由器/">
+
+
+
+
+
+  <title>编程器救砖小米mini路由器 | 水上灵风</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e22181c41b28e5cfb1dda27dad0a5e6e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">水上灵风</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">年龄大了，记不住了。所以</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.sslfer.com/2017/11/21/工具/编程器救砖小米mini路由器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="水上灵风">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/7332504?s=400&u=a3a4e327f64825ed221713053c243f2163ed26b9&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="水上灵风">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">编程器救砖小米mini路由器</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-21T00:00:00+00:00">
+                2017-11-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/工具/" itemprop="url" rel="index">
+                    <span itemprop="name">工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/11/21/工具/编程器救砖小米mini路由器/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2017/11/21/工具/编程器救砖小米mini路由器/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/11/21/工具/编程器救砖小米mini路由器/" class="leancloud_visitors" data-flag-title="编程器救砖小米mini路由器">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这个教程也适用修复sn码。<strong>申明： 刷机有风险，需谨慎。一切后果与本人无关</strong>。</p>
+<h3 id="变砖原因"><a href="#变砖原因" class="headerlink" title="变砖原因"></a>变砖原因</h3><p>刚把路由器买来的时候，就迫不及待的刷成了PandoraBox，用了一段时间之后，想刷回官方的系统，在<br>刷回实际操作的时候，选错了方法，还是使用了刷PandoraBox的方式。导致路由器通电之后，一直<br>处于黄灯状态。ssh无法连接路由器。使用usb刷系统，处于红灯状态。我下意识就知道成砖头了。</p>
+<p>吐槽一下小米之家，变砖之后我就直接去了小米之家，他们的维修方式只有两种：一种是在保修期内直接<br>换新的。另一种是保修期外返厂维修（他们是没有线刷设备的，维修不了）。我是过了保修期，又不想返<br>厂。为什么呢？我敢肯定的是硬件没有坏、有一点硬件的知识、不着急用、想练练手。</p>
+<h3 id="工具的准备"><a href="#工具的准备" class="headerlink" title="工具的准备"></a>工具的准备</h3><ul>
+<li>电脑一台</li>
+<li>CH341A编程器和驱动</li>
+<li>编程器夹子</li>
+<li>十字和一字螺丝刀</li>
+<li>WinHex软件</li>
+<li>小米mini路由器编程器固件</li>
+</ul>
+<p>编程器和夹子都可以从某宝买来也不贵，但需要注意的是： <strong>夹子的针脚数是8，别买错了</strong><br>驱动和编程固件<a href="http://qiniu.blog.sslfer.com/%E5%88%B7%E6%9C%BA%E9%A9%B1%E5%8A%A8%E5%92%8C%E5%88%B7%E6%9C%BA%E5%9B%BA%E4%BB%B6.zip" target="_blank" rel="noopener">点击下载</a></p>
+<h3 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h3><h4 id="1-拆路由器"><a href="#1-拆路由器" class="headerlink" title="1.拆路由器"></a>1.拆路由器</h4><p>一开始拿到路由器的时候，根本不知道从哪里下手，其实是要把他 <img src="http://qiniu.blog.sslfer.com/b843a3b47d108d19d5904890e5d5d2ca.png" alt="背面的封条"> 撕掉（放到一边备用），就会露出螺丝来。<br>撕下来之后，就到了破开外壳了。用一字螺丝刀把路由器的这两边 <img src="http://qiniu.blog.sslfer.com/9ce6eba2ae3eb2e9a1fcce44e4ef4102.png" alt="撬开地方"> 撬开，再用一点劲就可以掰开了。备用。</p>
+<h4 id="2-修改编程固件"><a href="#2-修改编程固件" class="headerlink" title="2.修改编程固件"></a>2.修改编程固件</h4><p>这个步骤是修复sn码，如果你不修复的话，无法绑定小米账号，也就无法用手机端管理路由器。不修复，能不能救活路由器我就不知道了，因为没有测试过。</p>
+<p>用WinHex打开小米mini编程器固件（<strong>文件-打开-选择小米mini编程器固件</strong>），使用快捷键 <strong>ALT+G</strong>，输入 <strong>00FF0004</strong> 如图（图片来自网络）<img src="http://qiniu.blog.sslfer.com/ae940eafc8146b1b68ed967fbee62d65.png" alt="修改sn"> 就到了要我们修改的地方了。上图黄色标注的地方就是要替换的sn，我们自己路由器的sn就在从拆开路由器时，撕下来的标签上写着的。</p>
+<p>这里修改sn的时候，并不是可以直接就把黄色标注的地方修改过来，而是需要在左边16进制区域进行修改。需要注意的是：16进制区域两个字母代表右边的一个数字。例如：00代表0，01代表1，以此类推09代表9。好在sn码全是数字，就可以自己使用刚刚的规则直接修改了。</p>
+<p>在左边区域移动光标到要修改地方的起始位（移动的时候，右边的光标也会跟着移动，注意，右边移动两次，左边才移动一次。原因刚刚说过了）。把sn码逐个替换，替换完一个数字之后，看看右边显示的是不是我们想要的数字。</p>
+<p>替换完成之后，还有一步重要的操作。<strong>选块计算CRC32</strong>，步骤是，标记一个起始位和一个截止未，计算这一段的 <strong>CRC32（32bit）</strong> 值。具体操作为：ALT+G 转到偏移量输入00FF0004，再按ALT+1（选块起始），按ALT+G转到偏移量输入00FF3FFF，再按ALT+2（选块结束），这样就选择好了块。再按CTRL+F2选择计算CRC32（注意类型）。就会得到一个值。记下这个值。 <strong>倒序</strong> 修改这个地方。如图（来自网络） <img src="http://qiniu.blog.sslfer.com/9124b5aa11981c2da89f3db2dec95e52.png" alt="填写CRC32值"> 修改完成之后，保存。这个就是我们等会要刷入路由器的固件了。</p>
+<h4 id="3-刷机"><a href="#3-刷机" class="headerlink" title="3.刷机"></a>3.刷机</h4><p>这一步有两个难点。1.驱动的安装。2.正确的连接路由器和编程器。</p>
+<p>驱动的安装，我就不说了。我是找了很多却动和换了3台电脑才成功了，重点说说连接路由器<br>正确连接的关键是： <strong>找到路由器闪存、夹子和编程器的第一个脚</strong>。<br>闪存器第一个脚是这个（来源网络）： <img src="http://qiniu.blog.sslfer.com/c4eec85d9264ce180892307c3ed6c574.png" alt="闪存器第一个脚"><br>夹子的第一个如图<br><img src="http://qiniu.blog.sslfer.com/91d43d7d460f105b0c8a286054efca06.png" alt="夹子第一个脚"><br>编程器的第一个脚如图 <img src="http://qiniu.blog.sslfer.com/2151953c7a30b9c2a1990dc1c5418d4a.png" alt="编程器第一个脚"> 注意放入的位置要和图片指示的位置一样。别上下搞反了。</p>
+<p>这个三个地方的第一个脚全部连接好了之后，就可以用CH341A编程器软件刷机了。<strong>注意的是，在使用编程器夹子的时候千万不要给路由器通电，切记！</strong></p>
+<p>步骤是：检测-[读取-保存]-擦除-查空-打开（第二步修改保存的固件）-编程-校验。<br>读取和保存可以不操作，这步是保存刷机前路由器你的程序固件。编程的时候要等一段时间。一般都会校验通过的，通过了就代表着刷机成功了。赶快去下编程器，通电试试吧！</p>
+<p>来几张我实际刷机的图片<br><img src="http://qiniu.blog.sslfer.com/c95cc33accc889d9cc2baaa2267cd344.png" alt="实际图片1"><br><img src="http://qiniu.blog.sslfer.com/79528effff185b777c3505275c4fbe73.png" alt="实际图片2"><br><img src="http://qiniu.blog.sslfer.com/404e68d343fbbd9055287dd8e25e07b5.png" alt="实际图片3"></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>正确连接路由器和编程器是关键。驱动安装可能会出现错误，要有道耐心。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/救砖/" rel="tag"># 救砖</a>
+          
+            <a href="/tags/小米mini路由器/" rel="tag"># 小米mini路由器</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/23/技术/设计模式第一篇/" rel="prev" title="设计模式第一篇">
+                设计模式第一篇 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars2.githubusercontent.com/u/7332504?s=400&u=a3a4e327f64825ed221713053c243f2163ed26b9&v=4" alt="水上灵风">
+            
+              <p class="site-author-name" itemprop="name">水上灵风</p>
+              <p class="site-description motion-element" itemprop="description">野生程序猿</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#变砖原因"><span class="nav-number">1.</span> <span class="nav-text">变砖原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工具的准备"><span class="nav-number">2.</span> <span class="nav-text">工具的准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作步骤"><span class="nav-number">3.</span> <span class="nav-text">操作步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-拆路由器"><span class="nav-number">3.1.</span> <span class="nav-text">1.拆路由器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-修改编程固件"><span class="nav-number">3.2.</span> <span class="nav-text">2.修改编程固件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-刷机"><span class="nav-number">3.3.</span> <span class="nav-text">3.刷机</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">水上灵风</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s13.cnzz.com/z_stat.php?id=1262238490&web_id=1262238490" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: 'e2c32f3b-5991-5806-b5cf-4994bf0caad2', 
+            <!-- id: window.location.pathname,  -->
+            owner: 'sslf',
+            repo: 'sslf.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '0f102766c5ee9762bcac14d9a33e01d0d4ddafdb',
+            
+                client_id: '76c17d044e0fef278057'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("DBTCLoQdLGuW27zR2cJlBGkl-gzGzoHsz", "1yfdLbbm1zKgNpQnpLUAg49e");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

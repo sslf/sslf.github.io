@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next gemini" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="mysql,spring,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一、数据库事务的基本特性事物是区分文件存储系统和Nosql数据库的重要特征之一。它存在的意义是保证在并发情况下的curd的正确性。那怎样才能算是正确的呢？那就是事物的4个特性，即ACID：  A：原子性（atomicty） 事物中的各个操作，要么全部成功，要么全部失败。   C：一致性（consistency） 事物结束后，各个状态应该是一致的，是正确的。   I：隔离性（isolation） 并">
+<meta name="keywords" content="mysql,spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mysql 事务隔离">
+<meta property="og:url" content="http://blog.sslfer.com/2018/09/05/技术/mysql 事务隔离/index.html">
+<meta property="og:site_name" content="水上灵风">
+<meta property="og:description" content="一、数据库事务的基本特性事物是区分文件存储系统和Nosql数据库的重要特征之一。它存在的意义是保证在并发情况下的curd的正确性。那怎样才能算是正确的呢？那就是事物的4个特性，即ACID：  A：原子性（atomicty） 事物中的各个操作，要么全部成功，要么全部失败。   C：一致性（consistency） 事物结束后，各个状态应该是一致的，是正确的。   I：隔离性（isolation） 并">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://qiniu.blog.sslfer.com/2018-09-06-09-41-46.png">
+<meta property="og:image" content="http://qiniu.blog.sslfer.com/2018-09-06-09-42-05.png">
+<meta property="og:image" content="http://qiniu.blog.sslfer.com/2018-09-06-10-00-54.png">
+<meta property="og:image" content="http://qiniu.blog.sslfer.com/2018-09-06-13-50-33.png">
+<meta property="og:image" content="http://qiniu.blog.sslfer.com/2018-09-06-14-09-52.png">
+<meta property="og:updated_time" content="2019-02-21T09:58:56.438Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mysql 事务隔离">
+<meta name="twitter:description" content="一、数据库事务的基本特性事物是区分文件存储系统和Nosql数据库的重要特征之一。它存在的意义是保证在并发情况下的curd的正确性。那怎样才能算是正确的呢？那就是事物的4个特性，即ACID：  A：原子性（atomicty） 事物中的各个操作，要么全部成功，要么全部失败。   C：一致性（consistency） 事物结束后，各个状态应该是一致的，是正确的。   I：隔离性（isolation） 并">
+<meta name="twitter:image" content="http://qiniu.blog.sslfer.com/2018-09-06-09-41-46.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.sslfer.com/2018/09/05/技术/mysql 事务隔离/">
+
+
+
+
+
+  <title>Mysql 事务隔离 | 水上灵风</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e22181c41b28e5cfb1dda27dad0a5e6e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">水上灵风</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">年龄大了，记不住了。所以</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.sslfer.com/2018/09/05/技术/mysql 事务隔离/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="水上灵风">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/7332504?s=400&u=a3a4e327f64825ed221713053c243f2163ed26b9&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="水上灵风">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Mysql 事务隔离</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-05T00:00:00+00:00">
+                2018-09-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/09/05/技术/mysql 事务隔离/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/09/05/技术/mysql 事务隔离/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/09/05/技术/mysql 事务隔离/" class="leancloud_visitors" data-flag-title="Mysql 事务隔离">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="一、数据库事务的基本特性"><a href="#一、数据库事务的基本特性" class="headerlink" title="一、数据库事务的基本特性"></a>一、数据库事务的基本特性</h3><p>事物是区分文件存储系统和Nosql数据库的重要特征之一。它存在的意义是保证在并发情况下的curd的正确性。那怎样才能算是正确的呢？<br>那就是事物的4个特性，即ACID：</p>
+<ol>
+<li>A：原子性（atomicty）<blockquote>
+<p>事物中的各个操作，要么全部成功，要么全部失败。</p>
+</blockquote>
+</li>
+<li>C：一致性（consistency）<blockquote>
+<p>事物结束后，各个状态应该是一致的，是正确的。</p>
+</blockquote>
+</li>
+<li>I：隔离性（isolation）<blockquote>
+<p>并发中的各个事物之间，彼此不能看到对方的中间状态。换句话说，不能查询到其他事物的修改。</p>
+</blockquote>
+</li>
+<li>D：持久性（durability）<blockquote>
+<p>保存事物的所有修改</p>
+</blockquote>
+</li>
+</ol>
+<p>在高并发下是很难完全同时保证ACID的。除非把所有的事物都串行执行，但串行所带来的效率问题又是我们不愿意接受的。为了解决这个问题。数据库提出了<br>事物的隔离级别。它允许我们在不同的业务场景下使用不同的策略来做ACID和效率之间的权衡。</p>
+<p>事物的隔离级别分为以下4种：</p>
+<ol>
+<li>读未提交 RU （Read uncommitted）：可以读到其他事务没有commit的数据。</li>
+<li>读提交 RC （Read committed）：只能读到其他事务已经提交了的数据，但是自己事务中的数据，可以被其他事务修改。</li>
+<li>可重复读 RR （Repeatable read）：</li>
+<li>可串行（Serializable）：所有事务依次执行，效率最低，保证ACID。</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>隔离级别</th>
+<th>脏读</th>
+<th>不可重复读</th>
+<th>幻读</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>未提交读</td>
+<td>可能</td>
+<td>可能</td>
+<td>可能</td>
+</tr>
+<tr>
+<td>提交读</td>
+<td>不可能</td>
+<td>可能</td>
+<td>可能</td>
+</tr>
+<tr>
+<td>可重复读</td>
+<td>不可能</td>
+<td>不可能</td>
+<td>可能</td>
+</tr>
+<tr>
+<td>可串行化</td>
+<td>不可能</td>
+<td>不可能</td>
+<td>不可能</td>
+</tr>
+</tbody>
+</table>
+<p>有了上面的定义和理论。我们就来实践一下具体隔离级别的。在实践之前，先准备好实践环境。</p>
+<p>首先创建一张测试表<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`test`</span> (</span><br><span class="line">  <span class="string">`id`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT,</span><br><span class="line">  <span class="string">`name`</span> <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>)</span><br><span class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> AUTO_INCREMENT=<span class="number">5</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8;</span><br></pre></td></tr></table></figure></p>
+<p>然后打开两个console。并且设置自动提交为off。</p>
+<p><img src="http://qiniu.blog.sslfer.com/2018-09-06-09-41-46.png" alt="2018-09-06-09-41-46"><br><img src="http://qiniu.blog.sslfer.com/2018-09-06-09-42-05.png" alt="2018-09-06-09-42-05"></p>
+<p>到此，环境已经准备完毕，开始测试。</p>
+<h4 id="读未提交（RU）"><a href="#读未提交（RU）" class="headerlink" title="读未提交（RU）"></a>读未提交（RU）</h4><p>先设置session的事务隔离级别为：read uncommitted（RU）。<strong>两个console都要设置</strong>。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> <span class="keyword">session</span> <span class="keyword">transaction</span> <span class="keyword">isolation</span> <span class="keyword">level</span> <span class="keyword">read</span> uncommitted;</span><br></pre></td></tr></table></figure></p>
+<p>测试流程如下：<br><img src="http://qiniu.blog.sslfer.com/2018-09-06-10-00-54.png" alt="2018-09-06-10-00-54"></p>
+<p>可以看到当前事务读取到了其他事务未提交的修改（未确认 commit）。我们把没有commit的数据称为脏数据，因为没有commit的数据还可能发生rollback。</p>
+<h4 id="读提交（RC）"><a href="#读提交（RC）" class="headerlink" title="读提交（RC）"></a>读提交（RC）</h4><p>先设置session的事务隔离级别为：read committed（RC）。<strong>两个console都要设置</strong>。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> <span class="keyword">session</span> <span class="keyword">transaction</span> <span class="keyword">isolation</span> <span class="keyword">level</span> <span class="keyword">read</span> committed;</span><br></pre></td></tr></table></figure></p>
+<p>测试流程如下：<br><img src="http://qiniu.blog.sslfer.com/2018-09-06-13-50-33.png" alt="2018-09-06-13-50-33"></p>
+<p>RC级别，不能读取其他事务未提交的数据，脏读问题也就解决了，但是可以发现，在同一次事务中多次查询是数据结果不一致。这也就导致不可重复读取的问题。<br>如果要解决这个问题，那也就只能是RR级别了。另外，RC级别是Oracle的默认级别（未验证）。</p>
+<h4 id="可重复读（RR）"><a href="#可重复读（RR）" class="headerlink" title="可重复读（RR）"></a>可重复读（RR）</h4><p>先设置session的事务隔离级别为：repeatable read（RR）。<strong>两个console都要设置</strong>。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> <span class="keyword">session</span> <span class="keyword">transaction</span> <span class="keyword">isolation</span> <span class="keyword">level</span> repeatable <span class="keyword">read</span>;</span><br></pre></td></tr></table></figure></p>
+<p>测试流程如下：<br><img src="http://qiniu.blog.sslfer.com/2018-09-06-14-09-52.png" alt="2018-09-06-14-09-52"></p>
+<p>在这个级别中。可以发现，已经解决了在同一个事务中多次查询不一致的问题。但是幻读的问题还是存在，<strong>myslq innodb 默认的事务隔离级别是：RR，但它自己解决了幻读</strong>。<br>那什么是幻读呢？</p>
+<p>幻读，简单讲就是在事务中前后读取的数据条数不一致。感觉就像是产生幻觉一样。那它和不可重复读有什么区别呢？<br>不可重复读：是数据的修改，即update、delete。<br>幻读：也是数据新增，即insert。</p>
+<p>举个例子：目前表中余额剩余1000块的人有10人。事务A查询余额为1000元的用户查询到了10人，未提交事务。之后，事务B向表中插入了一条余额也为1000的记录。<br>事务A再次查询余额为1000的人，结果查询出了11条记录。这就是幻读。</p>
+<h4 id="串行"><a href="#串行" class="headerlink" title="串行"></a>串行</h4><p>所以事务串行执行，事务隔离级别最高。效率最低。</p>
+<p>参考：<a href="https://blog.csdn.net/a837199685/article/details/54563740" target="_blank" rel="noopener">https://blog.csdn.net/a837199685/article/details/54563740</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mysql/" rel="tag"># mysql</a>
+          
+            <a href="/tags/spring/" rel="tag"># spring</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/03/工具/git bash 中文乱码/" rel="next" title="Git Bash 中文乱码">
+                <i class="fa fa-chevron-left"></i> Git Bash 中文乱码
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/12/基础/进制之间的转换/" rel="prev" title="进制之间的转换">
+                进制之间的转换 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars2.githubusercontent.com/u/7332504?s=400&u=a3a4e327f64825ed221713053c243f2163ed26b9&v=4" alt="水上灵风">
+            
+              <p class="site-author-name" itemprop="name">水上灵风</p>
+              <p class="site-description motion-element" itemprop="description">野生程序猿</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、数据库事务的基本特性"><span class="nav-number">1.</span> <span class="nav-text">一、数据库事务的基本特性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#读未提交（RU）"><span class="nav-number">1.1.</span> <span class="nav-text">读未提交（RU）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#读提交（RC）"><span class="nav-number">1.2.</span> <span class="nav-text">读提交（RC）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可重复读（RR）"><span class="nav-number">1.3.</span> <span class="nav-text">可重复读（RR）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#串行"><span class="nav-number">1.4.</span> <span class="nav-text">串行</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">水上灵风</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s13.cnzz.com/z_stat.php?id=1262238490&web_id=1262238490" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: 'f8e531b2-84c9-5e3e-96ff-caf779eeeba0', 
+            <!-- id: window.location.pathname,  -->
+            owner: 'sslf',
+            repo: 'sslf.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '0f102766c5ee9762bcac14d9a33e01d0d4ddafdb',
+            
+                client_id: '76c17d044e0fef278057'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("DBTCLoQdLGuW27zR2cJlBGkl-gzGzoHsz", "1yfdLbbm1zKgNpQnpLUAg49e");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

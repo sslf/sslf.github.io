@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next gemini" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="工科的出现是为了解决某些问题，那原码、反码和补码同样也是为了解决某些问题而产生的。那到底是要解决什么问题呢？全国人民都知道，pc电脑又叫计算机，计算机的最基本的功能就是计算，也就是数字的加减乘除。那好，我们来看看计算机到底是如何做加减乘除的。 在做计算前。需要先说明一下，计算机存储任何数据都是用二进制编码。文字是二进制、图像是二进制、视频是二进制同样数字也是二进制。这种二进制存储方式就是俗称的数字">
+<meta property="og:type" content="article">
+<meta property="og:title" content="原码、反码和补码">
+<meta property="og:url" content="http://blog.sslfer.com/2018/10/29/基础/原码、反码和补码/index.html">
+<meta property="og:site_name" content="水上灵风">
+<meta property="og:description" content="工科的出现是为了解决某些问题，那原码、反码和补码同样也是为了解决某些问题而产生的。那到底是要解决什么问题呢？全国人民都知道，pc电脑又叫计算机，计算机的最基本的功能就是计算，也就是数字的加减乘除。那好，我们来看看计算机到底是如何做加减乘除的。 在做计算前。需要先说明一下，计算机存储任何数据都是用二进制编码。文字是二进制、图像是二进制、视频是二进制同样数字也是二进制。这种二进制存储方式就是俗称的数字">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-02-21T09:58:56.438Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="原码、反码和补码">
+<meta name="twitter:description" content="工科的出现是为了解决某些问题，那原码、反码和补码同样也是为了解决某些问题而产生的。那到底是要解决什么问题呢？全国人民都知道，pc电脑又叫计算机，计算机的最基本的功能就是计算，也就是数字的加减乘除。那好，我们来看看计算机到底是如何做加减乘除的。 在做计算前。需要先说明一下，计算机存储任何数据都是用二进制编码。文字是二进制、图像是二进制、视频是二进制同样数字也是二进制。这种二进制存储方式就是俗称的数字">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.sslfer.com/2018/10/29/基础/原码、反码和补码/">
+
+
+
+
+
+  <title>原码、反码和补码 | 水上灵风</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e22181c41b28e5cfb1dda27dad0a5e6e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">水上灵风</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">年龄大了，记不住了。所以</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.sslfer.com/2018/10/29/基础/原码、反码和补码/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="水上灵风">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/7332504?s=400&u=a3a4e327f64825ed221713053c243f2163ed26b9&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="水上灵风">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">原码、反码和补码</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-29T00:00:00+00:00">
+                2018-10-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/基础/" itemprop="url" rel="index">
+                    <span itemprop="name">基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/10/29/基础/原码、反码和补码/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/10/29/基础/原码、反码和补码/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/10/29/基础/原码、反码和补码/" class="leancloud_visitors" data-flag-title="原码、反码和补码">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>工科的出现是为了解决某些问题，那原码、反码和补码同样也是为了解决某些问题而产生的。那到底是要解决什么问题呢？<br>全国人民都知道，pc电脑又叫计算机，计算机的最基本的功能就是计算，也就是数字的加减乘除。那好，我们来看看计算机到底是如何做加减乘除的。</p>
+<p>在做计算前。需要先说明一下，计算机存储任何数据都是用二进制编码。文字是二进制、图像是二进制、视频是二进制同样数字也是二进制。这种二进制存储方式就是俗称的数字化。<br>还有很重要的一点就是：计算机不会做减法。当我第一次听说的时候，很诧异，也很好奇。为什么呢？原来人们在设计计算机电路的时候，只保留了加法电路，从而简化了电路的设计与实现简单。只保留做加法的功能就能简化电路？<br>我的回答是肯定的。在数学中：2-1 = 2+（-1）、2*3 = 2+2+2、4/3 = 4-3 = 4+(-3)。用加法就可以做数字的运算。<br>数字是有正负的，那计算机是如何表达正负的呢？计算机先驱们规定：<strong>最高位0表示正数，1表示负数</strong>。</p>
+<h2 id="一、方式一"><a href="#一、方式一" class="headerlink" title="一、方式一"></a>一、方式一</h2><p>现在要计算机计算：3+2=？ 用4位二进制来表示。<strong>直接写出十进制的二进制码</strong>。<br>计算规则为：二进制码相加，溢出就丢掉。</p>
+<p>3+2 = 0011 + 0010 = 0101 = +5 结果正确</p>
+<p>计算：3-2=？ 用4位二进制表示<br>3-2 = 3+(-2) = 0011 + 1010 = 1101 = -5 错误  </p>
+<p>计算：3-3=？ 用4位二进制表示<br>3-3 = 3+(-3) = 0011 + 1011 = 1110 = -6 错误</p>
+<p>计算：2-3=？ 用4位二进制表示<br>2-3 = 2+(-3) = 0010 +  1011 =  1101 = -5 错误</p>
+<p>计算：-3-2=？ 用4位二进制表示<br>-3-2 = -3-2 = 1011 + 1010 = 1 0111 = 0111 = 7 错误   </p>
+<blockquote>
+<p>10111等于0111是因为给的是4位，最高位溢出，所以得到了0111</p>
+</blockquote>
+<p>小结：从上面5个计算结果来看，发现做减法一定是错误的（-3-2不是减法，而是需要强制写符号位的加法），做加法就没问题。<br>那我们得出的结论是：</p>
+<ol>
+<li>做减法错误</li>
+<li>0的表示有两种：0000 = +0，1000 = -0</li>
+<li>符号位需要强制写入</li>
+</ol>
+<h2 id="二、方式二"><a href="#二、方式二" class="headerlink" title="二、方式二"></a>二、方式二</h2><p>为了解决上面出现的几个问题，在上面的基础上做些调整：<strong>正数不管，负数除开符号位，也就是最高位不管，其他的位置全部取反，是0变成1，1变成0</strong>。<br>计算规则为：在方式一的基础上，正数不用取反，负数取反，然后得到的二进制码相加，有溢出的话，就把剩下的部分加一，最后把加一所得的二进制码取反就是结果</p>
+<p>还是分别计算上面的几个式子：<br>3+2 = 0011 + 0010 = 0011 + 0010 = 0100 = 0101 正确  </p>
+<p>3-2 = 3+(-2) = 0011 + 1010 = 0011 + 1101 = 1 0000 = 0001 = 0001 = 1 正确  </p>
+<blockquote>
+<p>解释一下：1 0000 怎么就等于 0001了呢？其实是这样的，因为我们给的是4位，10000 长度为5位，所以最高位的1就溢出被丢弃掉了。因此，10000在4位的时候其实是为<br>0000，为了到达计算的准确性，只要有进位（溢出）我们就用结果加一。  </p>
+</blockquote>
+<p>3-3 = 3+(-3) = 0011 + 1011 = 0011 + 1100 = 1111 = 1000 = -0 结果正确，符号错误</p>
+<p>2-3 = 2+(-3) = 0010 + 1011 = 0010 + 1100 = 1110 = 1001 = -1 正确</p>
+<p>-3-2 = 1011 + 1010 = 1100 + 1101 = 1 1001 = 1010 = 1101 = -5 正确  </p>
+<p>小结：减法可以正确计算，但是溢出需要加一才能得正确的结果。同时又有+0和-0的结果出现，需要取绝对值才是正确的值。得出的结论是：</p>
+<ol>
+<li>减法正确</li>
+<li>0的表示有两种：0000 = 0000 = +0，1000 = 1111 = -0</li>
+<li>溢出需要加一才能得到准确结果</li>
+<li>在计算和取得最后结果之前，都需要做取反操作</li>
+<li>当结果为0的时候需要取绝对值</li>
+</ol>
+<h2 id="三、方式三"><a href="#三、方式三" class="headerlink" title="三、方式三"></a>三、方式三</h2><p>上面的方式二，虽然可以准确的做减法，但是同时也引入的一些新的问题，比如无法准确得到结果0、溢出需要加一操作等等。<br>在使用计算机的时候，经常会听到性能一词。上面的计算方式明显不合乎追求高性能的做法。那有没有什么方法可以解决这个问题呢，计算机发展了这么多年肯定是有的。<br>那我们就看看新的方法。</p>
+<p>在方式二的取反基础上加一得到新的二进制编码，也就是：<strong>正数不管，负数除开符号位，也就是最高位不管，其他的位置全部取反，是0变成1，1变成0，然后加1</strong>。<br>计算规则为：整数不管，负数取反然后做加法操作，溢出位不管，得到溢出之后的结果再做取反加一就是几个二进制码了</p>
+<p>还是分别计算上面的几个式子：<br>3+2 = 0011 + 0010 = 0011 + 0010 = 0011 + 0010 = 0101 = 0101 = 5 正确</p>
+<p>3-2 = 3+(-2) = （0011 + 1010）二进制 = （0011 + 1101）取反 = （0011 + 1110）加一 = 1 0001 = （0001）溢出 = (0001)正数不管 = 1 正确</p>
+<p>3-3 = 3+(-3) = 0011 + 1011 = 0011 + 1100 = 0011 + 1101 = 1 0000 = 0000 = 0 正确</p>
+<p>2-3 = 2+(-3) = （0010 + 1011）二进制 = （0010 + 1100）取反 = （0010 + 1101）加一 = 1111 = （1000）取反 = （1001）加一 = -1 正确</p>
+<p>-3-2 = -3+(-2) = （1011 + 1010）二进制 = （1100 + 1101）取反 = （1101 + 1110）加一 = 1 1011 = （1011）溢出 = （1100）取反 = （1101）加一 = -5 正确</p>
+<p>小结：计算结果全部正确，没有特殊的需要判断的操作，因此解决了+0和-0的问题，也没有了溢出加一操作。所以计算都是相同操作。<br>因此得出的结论为：</p>
+<ol>
+<li>所有计算结果准确，且计算方式相同</li>
+<li>没有+0和-0的结果</li>
+<li>0000表示0，1000表示负的最小值，例如：8位就是：-128</li>
+</ol>
+<p>“都到这里了，还是没有说原码、反码和补码的事“，肯定有朋友是这么想的。其实我已经说过了。方式一就是原码，方式二就是反码，方式三就是补码。那接下来我们来总结一下。</p>
+<h2 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h2><p>原码、反码和补码都是为了计算而产生的。只不过补码是为了解决原码和反码所带来的问题。现在的计算机一般都是用反码来计算。因此如果要问某种数据类型取值范围的话，<br>应该先得到该类型所占的字节数，然后根据1byte = 8bit可以得出取值范围为：-2^(n*8-1)~2^(n*8-1)-1。比如：java的int占多少位。就是-2^(4*8-1)~2^(4*8-1)-1 =<br>-2^31~2^31-1。</p>
+<h2 id="五、补码的推导"><a href="#五、补码的推导" class="headerlink" title="五、补码的推导"></a>五、补码的推导</h2><p>// TODO </p>
+<p>参考：</p>
+<ul>
+<li><a href="https://zh.wikipedia.org/wiki/%E6%9C%89%E7%AC%A6%E8%99%9F%E6%95%B8%E8%99%95%E7%90%86" target="_blank" rel="noopener">有符号数处理--维基百科</a></li>
+<li><a href="https://www.cnblogs.com/zhangziqiu/archive/2011/03/30/ComputerCode.html" target="_blank" rel="noopener">原码, 反码, 补码 详解--张子秋</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/12/基础/进制之间的转换/" rel="next" title="进制之间的转换">
+                <i class="fa fa-chevron-left"></i> 进制之间的转换
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/21/技术/缓存击穿与缓存雪崩/" rel="prev" title="缓存击穿与缓存雪崩">
+                缓存击穿与缓存雪崩 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars2.githubusercontent.com/u/7332504?s=400&u=a3a4e327f64825ed221713053c243f2163ed26b9&v=4" alt="水上灵风">
+            
+              <p class="site-author-name" itemprop="name">水上灵风</p>
+              <p class="site-description motion-element" itemprop="description">野生程序猿</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、方式一"><span class="nav-number">1.</span> <span class="nav-text">一、方式一</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、方式二"><span class="nav-number">2.</span> <span class="nav-text">二、方式二</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、方式三"><span class="nav-number">3.</span> <span class="nav-text">三、方式三</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、总结"><span class="nav-number">4.</span> <span class="nav-text">四、总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、补码的推导"><span class="nav-number">5.</span> <span class="nav-text">五、补码的推导</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">水上灵风</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s13.cnzz.com/z_stat.php?id=1262238490&web_id=1262238490" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: '6a052db2-636b-542c-84a0-0d4d2424f93c', 
+            <!-- id: window.location.pathname,  -->
+            owner: 'sslf',
+            repo: 'sslf.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '0f102766c5ee9762bcac14d9a33e01d0d4ddafdb',
+            
+                client_id: '76c17d044e0fef278057'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("DBTCLoQdLGuW27zR2cJlBGkl-gzGzoHsz", "1yfdLbbm1zKgNpQnpLUAg49e");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
